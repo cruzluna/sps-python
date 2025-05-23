@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["PromptRetrieveContentParams"]
+__all__ = ["PromptRetrieveParams"]
 
 
-class PromptRetrieveContentParams(TypedDict, total=False):
-    latest: bool
-    """Latest version of the prompt"""
+class PromptRetrieveParams(TypedDict, total=False):
+    metadata: bool
+    """Whether to include metadata in the response"""

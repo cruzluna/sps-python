@@ -13,11 +13,11 @@ class PromptListParams(TypedDict, total=False):
     category: Required[str]
     """The category of the prompts to return"""
 
-    from_: Required[Annotated[int, PropertyInfo(alias="from")]]
+    from_: Annotated[int, PropertyInfo(alias="from")]
     """The pagination offset to start from (0-based)"""
 
-    size: Required[int]
+    size: int
     """The number of prompts to return"""
 
-    to: Required[int]
+    to: int
     """The pagination offset to end at (exclusive)"""
