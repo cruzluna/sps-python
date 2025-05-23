@@ -786,7 +786,7 @@ class TestSystemPromptStorage:
 
         respx_mock.post("/prompt").mock(side_effect=retry_handler)
 
-        response = client.prompt.with_raw_response.create(content="content")
+        response = client.prompts.with_raw_response.create(content="content")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -810,7 +810,7 @@ class TestSystemPromptStorage:
 
         respx_mock.post("/prompt").mock(side_effect=retry_handler)
 
-        response = client.prompt.with_raw_response.create(
+        response = client.prompts.with_raw_response.create(
             content="content", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -835,7 +835,7 @@ class TestSystemPromptStorage:
 
         respx_mock.post("/prompt").mock(side_effect=retry_handler)
 
-        response = client.prompt.with_raw_response.create(
+        response = client.prompts.with_raw_response.create(
             content="content", extra_headers={"x-stainless-retry-count": "42"}
         )
 
@@ -1576,7 +1576,7 @@ class TestAsyncSystemPromptStorage:
 
         respx_mock.post("/prompt").mock(side_effect=retry_handler)
 
-        response = await client.prompt.with_raw_response.create(content="content")
+        response = await client.prompts.with_raw_response.create(content="content")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1601,7 +1601,7 @@ class TestAsyncSystemPromptStorage:
 
         respx_mock.post("/prompt").mock(side_effect=retry_handler)
 
-        response = await client.prompt.with_raw_response.create(
+        response = await client.prompts.with_raw_response.create(
             content="content", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -1627,7 +1627,7 @@ class TestAsyncSystemPromptStorage:
 
         respx_mock.post("/prompt").mock(side_effect=retry_handler)
 
-        response = await client.prompt.with_raw_response.create(
+        response = await client.prompts.with_raw_response.create(
             content="content", extra_headers={"x-stainless-retry-count": "42"}
         )
 
