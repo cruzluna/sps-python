@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .._models import BaseModel
 
-__all__ = ["PromptCreateResponse", "Metadata"]
+__all__ = ["Prompt", "Metadata"]
 
 
 class Metadata(BaseModel):
@@ -21,7 +21,7 @@ class Metadata(BaseModel):
     """Tags of the prompt ie [react, typescript, etc.]"""
 
 
-class PromptCreateResponse(BaseModel):
+class Prompt(BaseModel):
     id: str
     """The id of the prompt"""
 

@@ -22,7 +22,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import prompt
+from .resources import prompts
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -44,7 +44,7 @@ __all__ = [
 
 
 class SystemPromptStorage(SyncAPIClient):
-    prompt: prompt.PromptResource
+    prompts: prompts.PromptsResource
     with_raw_response: SystemPromptStorageWithRawResponse
     with_streaming_response: SystemPromptStorageWithStreamedResponse
 
@@ -98,7 +98,7 @@ class SystemPromptStorage(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.prompt = prompt.PromptResource(self)
+        self.prompts = prompts.PromptsResource(self)
         self.with_raw_response = SystemPromptStorageWithRawResponse(self)
         self.with_streaming_response = SystemPromptStorageWithStreamedResponse(self)
 
@@ -221,7 +221,7 @@ class SystemPromptStorage(SyncAPIClient):
 
 
 class AsyncSystemPromptStorage(AsyncAPIClient):
-    prompt: prompt.AsyncPromptResource
+    prompts: prompts.AsyncPromptsResource
     with_raw_response: AsyncSystemPromptStorageWithRawResponse
     with_streaming_response: AsyncSystemPromptStorageWithStreamedResponse
 
@@ -275,7 +275,7 @@ class AsyncSystemPromptStorage(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.prompt = prompt.AsyncPromptResource(self)
+        self.prompts = prompts.AsyncPromptsResource(self)
         self.with_raw_response = AsyncSystemPromptStorageWithRawResponse(self)
         self.with_streaming_response = AsyncSystemPromptStorageWithStreamedResponse(self)
 
@@ -399,22 +399,22 @@ class AsyncSystemPromptStorage(AsyncAPIClient):
 
 class SystemPromptStorageWithRawResponse:
     def __init__(self, client: SystemPromptStorage) -> None:
-        self.prompt = prompt.PromptResourceWithRawResponse(client.prompt)
+        self.prompts = prompts.PromptsResourceWithRawResponse(client.prompts)
 
 
 class AsyncSystemPromptStorageWithRawResponse:
     def __init__(self, client: AsyncSystemPromptStorage) -> None:
-        self.prompt = prompt.AsyncPromptResourceWithRawResponse(client.prompt)
+        self.prompts = prompts.AsyncPromptsResourceWithRawResponse(client.prompts)
 
 
 class SystemPromptStorageWithStreamedResponse:
     def __init__(self, client: SystemPromptStorage) -> None:
-        self.prompt = prompt.PromptResourceWithStreamingResponse(client.prompt)
+        self.prompts = prompts.PromptsResourceWithStreamingResponse(client.prompts)
 
 
 class AsyncSystemPromptStorageWithStreamedResponse:
     def __init__(self, client: AsyncSystemPromptStorage) -> None:
-        self.prompt = prompt.AsyncPromptResourceWithStreamingResponse(client.prompt)
+        self.prompts = prompts.AsyncPromptsResourceWithStreamingResponse(client.prompts)
 
 
 Client = SystemPromptStorage

@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
+from .prompt import Prompt as Prompt
 from .prompt_list_params import PromptListParams as PromptListParams
 from .prompt_create_params import PromptCreateParams as PromptCreateParams
 from .prompt_list_response import PromptListResponse as PromptListResponse
 from .prompt_update_params import PromptUpdateParams as PromptUpdateParams
-from .prompt_create_response import PromptCreateResponse as PromptCreateResponse
 from .prompt_update_response import PromptUpdateResponse as PromptUpdateResponse
 from .prompt_retrieve_response import PromptRetrieveResponse as PromptRetrieveResponse
 from .prompt_update_metadata_params import PromptUpdateMetadataParams as PromptUpdateMetadataParams
