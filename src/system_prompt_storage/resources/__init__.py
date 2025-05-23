@@ -1,19 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .prompt import (
-    PromptResource,
-    AsyncPromptResource,
-    PromptResourceWithRawResponse,
-    AsyncPromptResourceWithRawResponse,
-    PromptResourceWithStreamingResponse,
-    AsyncPromptResourceWithStreamingResponse,
+from .prompts import (
+    PromptsResource,
+    AsyncPromptsResource,
+    PromptsResourceWithRawResponse,
+    AsyncPromptsResourceWithRawResponse,
+    PromptsResourceWithStreamingResponse,
+    AsyncPromptsResourceWithStreamingResponse,
 )
 
 __all__ = [
-    "PromptResource",
-    "AsyncPromptResource",
-    "PromptResourceWithRawResponse",
-    "AsyncPromptResourceWithRawResponse",
-    "PromptResourceWithStreamingResponse",
-    "AsyncPromptResourceWithStreamingResponse",
+    "PromptsResource",
+    "AsyncPromptsResource",
+    "PromptsResourceWithRawResponse",
+    "AsyncPromptsResourceWithRawResponse",
+    "PromptsResourceWithStreamingResponse",
+    "AsyncPromptsResourceWithStreamingResponse",
 ]

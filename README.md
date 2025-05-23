@@ -33,7 +33,7 @@ client = SystemPromptStorage(
     ),  # This is the default and can be omitted
 )
 
-prompt = client.prompt.create(
+prompt = client.prompts.create(
     content="content",
 )
 print(prompt.id)
@@ -61,7 +61,7 @@ client = AsyncSystemPromptStorage(
 
 
 async def main() -> None:
-    prompt = await client.prompt.create(
+    prompt = await client.prompts.create(
         content="content",
     )
     print(prompt.id)
@@ -97,7 +97,7 @@ from system_prompt_storage import SystemPromptStorage
 client = SystemPromptStorage()
 
 try:
-    client.prompt.create(
+    client.prompts.create(
         content="content",
     )
 except system_prompt_storage.APIConnectionError as e:
@@ -142,7 +142,7 @@ client = SystemPromptStorage(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).prompt.create(
+client.with_options(max_retries=5).prompts.create(
     content="content",
 )
 ```
@@ -167,7 +167,7 @@ client = SystemPromptStorage(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).prompt.create(
+client.with_options(timeout=5.0).prompts.create(
     content="content",
 )
 ```
@@ -210,12 +210,12 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from system_prompt_storage import SystemPromptStorage
 
 client = SystemPromptStorage()
-response = client.prompt.with_raw_response.create(
+response = client.prompts.with_raw_response.create(
     content="content",
 )
 print(response.headers.get('X-My-Header'))
 
-prompt = response.parse()  # get the object that `prompt.create()` would have returned
+prompt = response.parse()  # get the object that `prompts.create()` would have returned
 print(prompt.id)
 ```
 
@@ -230,7 +230,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.prompt.with_streaming_response.create(
+with client.prompts.with_streaming_response.create(
     content="content",
 ) as response:
     print(response.headers.get("X-My-Header"))

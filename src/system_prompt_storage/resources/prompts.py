@@ -6,7 +6,13 @@ from typing import List, Optional
 
 import httpx
 
-from ..types import prompt_list_params, prompt_create_params, prompt_retrieve_content_params
+from ..types import (
+    prompt_list_params,
+    prompt_create_params,
+    prompt_update_params,
+    prompt_update_metadata_params,
+    prompt_retrieve_content_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,31 +24,31 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.prompt import Prompt
 from ..types.prompt_list_response import PromptListResponse
-from ..types.prompt_create_response import PromptCreateResponse
 
-__all__ = ["PromptResource", "AsyncPromptResource"]
+__all__ = ["PromptsResource", "AsyncPromptsResource"]
 
 
-class PromptResource(SyncAPIResource):
+class PromptsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> PromptResourceWithRawResponse:
+    def with_raw_response(self) -> PromptsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/cruzluna/sps-python#accessing-raw-response-data-eg-headers
         """
-        return PromptResourceWithRawResponse(self)
+        return PromptsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> PromptResourceWithStreamingResponse:
+    def with_streaming_response(self) -> PromptsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/cruzluna/sps-python#with_streaming_response
         """
-        return PromptResourceWithStreamingResponse(self)
+        return PromptsResourceWithStreamingResponse(self)
 
     def create(
         self,
@@ -60,7 +66,7 @@ class PromptResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptCreateResponse:
+    ) -> Prompt:
         """
         Create prompt
 
@@ -105,7 +111,7 @@ class PromptResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptCreateResponse,
+            cast_to=Prompt,
         )
 
     def retrieve(
@@ -136,6 +142,62 @@ class PromptResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._get(
             f"/prompt/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
+    def update(
+        self,
+        path_id: str,
+        *,
+        body_id: str,
+        content: str,
+        parent: str,
+        branched: Optional[bool] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Update prompt
+
+        Args:
+          body_id: The id of the prompt to update
+
+          content: The content of the updated prompt
+
+          parent: The parent of the updated prompt. Most times its the same as the id of the
+              prompt to update.
+
+          branched: Whether the updated prompt is branched
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not path_id:
+            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._put(
+            f"/prompt/{path_id}",
+            body=maybe_transform(
+                {
+                    "body_id": body_id,
+                    "content": content,
+                    "parent": parent,
+                    "branched": branched,
+                },
+                prompt_update_params.PromptUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -271,26 +333,85 @@ class PromptResource(SyncAPIResource):
             cast_to=str,
         )
 
+    def update_metadata(
+        self,
+        path_id: str,
+        *,
+        body_id: str,
+        category: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Update prompt metadata
 
-class AsyncPromptResource(AsyncAPIResource):
+        Args:
+          body_id: The id of the prompt
+
+          category: The category of the prompt
+
+          description: The description of the prompt
+
+          name: The name of the prompt
+
+          tags: The tags of the prompt
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not path_id:
+            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._put(
+            f"/prompt/{path_id}/metadata",
+            body=maybe_transform(
+                {
+                    "body_id": body_id,
+                    "category": category,
+                    "description": description,
+                    "name": name,
+                    "tags": tags,
+                },
+                prompt_update_metadata_params.PromptUpdateMetadataParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
+
+class AsyncPromptsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncPromptResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncPromptsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/cruzluna/sps-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncPromptResourceWithRawResponse(self)
+        return AsyncPromptsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncPromptResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncPromptsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/cruzluna/sps-python#with_streaming_response
         """
-        return AsyncPromptResourceWithStreamingResponse(self)
+        return AsyncPromptsResourceWithStreamingResponse(self)
 
     async def create(
         self,
@@ -308,7 +429,7 @@ class AsyncPromptResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptCreateResponse:
+    ) -> Prompt:
         """
         Create prompt
 
@@ -353,7 +474,7 @@ class AsyncPromptResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptCreateResponse,
+            cast_to=Prompt,
         )
 
     async def retrieve(
@@ -384,6 +505,62 @@ class AsyncPromptResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
             f"/prompt/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
+    async def update(
+        self,
+        path_id: str,
+        *,
+        body_id: str,
+        content: str,
+        parent: str,
+        branched: Optional[bool] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Update prompt
+
+        Args:
+          body_id: The id of the prompt to update
+
+          content: The content of the updated prompt
+
+          parent: The parent of the updated prompt. Most times its the same as the id of the
+              prompt to update.
+
+          branched: Whether the updated prompt is branched
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not path_id:
+            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._put(
+            f"/prompt/{path_id}",
+            body=await async_maybe_transform(
+                {
+                    "body_id": body_id,
+                    "content": content,
+                    "parent": parent,
+                    "branched": branched,
+                },
+                prompt_update_params.PromptUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -521,86 +698,169 @@ class AsyncPromptResource(AsyncAPIResource):
             cast_to=str,
         )
 
+    async def update_metadata(
+        self,
+        path_id: str,
+        *,
+        body_id: str,
+        category: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Update prompt metadata
 
-class PromptResourceWithRawResponse:
-    def __init__(self, prompt: PromptResource) -> None:
-        self._prompt = prompt
+        Args:
+          body_id: The id of the prompt
+
+          category: The category of the prompt
+
+          description: The description of the prompt
+
+          name: The name of the prompt
+
+          tags: The tags of the prompt
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not path_id:
+            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._put(
+            f"/prompt/{path_id}/metadata",
+            body=await async_maybe_transform(
+                {
+                    "body_id": body_id,
+                    "category": category,
+                    "description": description,
+                    "name": name,
+                    "tags": tags,
+                },
+                prompt_update_metadata_params.PromptUpdateMetadataParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
+
+class PromptsResourceWithRawResponse:
+    def __init__(self, prompts: PromptsResource) -> None:
+        self._prompts = prompts
 
         self.create = to_raw_response_wrapper(
-            prompt.create,
+            prompts.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            prompt.retrieve,
+            prompts.retrieve,
+        )
+        self.update = to_raw_response_wrapper(
+            prompts.update,
         )
         self.list = to_raw_response_wrapper(
-            prompt.list,
+            prompts.list,
         )
         self.delete = to_raw_response_wrapper(
-            prompt.delete,
+            prompts.delete,
         )
         self.retrieve_content = to_raw_response_wrapper(
-            prompt.retrieve_content,
+            prompts.retrieve_content,
+        )
+        self.update_metadata = to_raw_response_wrapper(
+            prompts.update_metadata,
         )
 
 
-class AsyncPromptResourceWithRawResponse:
-    def __init__(self, prompt: AsyncPromptResource) -> None:
-        self._prompt = prompt
+class AsyncPromptsResourceWithRawResponse:
+    def __init__(self, prompts: AsyncPromptsResource) -> None:
+        self._prompts = prompts
 
         self.create = async_to_raw_response_wrapper(
-            prompt.create,
+            prompts.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            prompt.retrieve,
+            prompts.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            prompts.update,
         )
         self.list = async_to_raw_response_wrapper(
-            prompt.list,
+            prompts.list,
         )
         self.delete = async_to_raw_response_wrapper(
-            prompt.delete,
+            prompts.delete,
         )
         self.retrieve_content = async_to_raw_response_wrapper(
-            prompt.retrieve_content,
+            prompts.retrieve_content,
+        )
+        self.update_metadata = async_to_raw_response_wrapper(
+            prompts.update_metadata,
         )
 
 
-class PromptResourceWithStreamingResponse:
-    def __init__(self, prompt: PromptResource) -> None:
-        self._prompt = prompt
+class PromptsResourceWithStreamingResponse:
+    def __init__(self, prompts: PromptsResource) -> None:
+        self._prompts = prompts
 
         self.create = to_streamed_response_wrapper(
-            prompt.create,
+            prompts.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            prompt.retrieve,
+            prompts.retrieve,
+        )
+        self.update = to_streamed_response_wrapper(
+            prompts.update,
         )
         self.list = to_streamed_response_wrapper(
-            prompt.list,
+            prompts.list,
         )
         self.delete = to_streamed_response_wrapper(
-            prompt.delete,
+            prompts.delete,
         )
         self.retrieve_content = to_streamed_response_wrapper(
-            prompt.retrieve_content,
+            prompts.retrieve_content,
+        )
+        self.update_metadata = to_streamed_response_wrapper(
+            prompts.update_metadata,
         )
 
 
-class AsyncPromptResourceWithStreamingResponse:
-    def __init__(self, prompt: AsyncPromptResource) -> None:
-        self._prompt = prompt
+class AsyncPromptsResourceWithStreamingResponse:
+    def __init__(self, prompts: AsyncPromptsResource) -> None:
+        self._prompts = prompts
 
         self.create = async_to_streamed_response_wrapper(
-            prompt.create,
+            prompts.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            prompt.retrieve,
+            prompts.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            prompts.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            prompt.list,
+            prompts.list,
         )
         self.delete = async_to_streamed_response_wrapper(
-            prompt.delete,
+            prompts.delete,
         )
         self.retrieve_content = async_to_streamed_response_wrapper(
-            prompt.retrieve_content,
+            prompts.retrieve_content,
+        )
+        self.update_metadata = async_to_streamed_response_wrapper(
+            prompts.update_metadata,
         )
