@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0-alpha.2 (2025-05-24)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Features
+
+* **api:** api update ([6ea8d2b](https://github.com/cruzluna/sps-python/commit/6ea8d2b9d6cdfb6bca702dfca43dabce1d570fdf))
+* **api:** api update ([4cbaffe](https://github.com/cruzluna/sps-python/commit/4cbaffe0d38befcf8167c9910a633ad09cc8f20a))
+* **api:** api update ([0ba0463](https://github.com/cruzluna/sps-python/commit/0ba046339f06112df8793862c10e8e7976e76281))
+
 ## 0.1.0-alpha.1 (2025-05-23)
 
 Full Changelog: [v0.0.1-alpha.1...v0.1.0-alpha.1](https://github.com/cruzluna/sps-python/compare/v0.0.1-alpha.1...v0.1.0-alpha.1)

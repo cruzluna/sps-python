@@ -2,22 +2,17 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import TypedDict
 
 __all__ = ["PromptListParams"]
 
 
 class PromptListParams(TypedDict, total=False):
-    category: Required[str]
+    category: str
     """The category of the prompts to return"""
 
-    from_: Required[Annotated[int, PropertyInfo(alias="from")]]
-    """The pagination offset to start from (0-based)"""
+    limit: int
+    """The number of prompts to return. Default is 10."""
 
-    size: Required[int]
-    """The number of prompts to return"""
-
-    to: Required[int]
-    """The pagination offset to end at (exclusive)"""
+    offset: int
+    """The pagination offset to start from (0-based). Default is 0."""

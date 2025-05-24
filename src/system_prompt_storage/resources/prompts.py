@@ -6,13 +6,7 @@ from typing import List, Optional
 
 import httpx
 
-from ..types import (
-    prompt_list_params,
-    prompt_create_params,
-    prompt_update_params,
-    prompt_update_metadata_params,
-    prompt_retrieve_content_params,
-)
+from ..types import prompt_list_params, prompt_create_params, prompt_retrieve_params, prompt_retrieve_content_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -118,6 +112,7 @@ class PromptsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        metadata: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -126,9 +121,11 @@ class PromptsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
         """
-        Get prompt
+        Get entire prompt with option to include metadata
 
         Args:
+          metadata: Whether to include metadata in the response
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -143,63 +140,11 @@ class PromptsResource(SyncAPIResource):
         return self._get(
             f"/prompt/{id}",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
-    def update(
-        self,
-        path_id: str,
-        *,
-        body_id: str,
-        content: str,
-        parent: str,
-        branched: Optional[bool] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Update prompt
-
-        Args:
-          body_id: The id of the prompt to update
-
-          content: The content of the updated prompt
-
-          parent: The parent of the updated prompt. Most times its the same as the id of the
-              prompt to update.
-
-          branched: Whether the updated prompt is branched
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return self._put(
-            f"/prompt/{path_id}",
-            body=maybe_transform(
-                {
-                    "body_id": body_id,
-                    "content": content,
-                    "parent": parent,
-                    "branched": branched,
-                },
-                prompt_update_params.PromptUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"metadata": metadata}, prompt_retrieve_params.PromptRetrieveParams),
             ),
             cast_to=str,
         )
@@ -207,10 +152,9 @@ class PromptsResource(SyncAPIResource):
     def list(
         self,
         *,
-        category: str,
-        from_: int,
-        size: int,
-        to: int,
+        category: str | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -224,11 +168,9 @@ class PromptsResource(SyncAPIResource):
         Args:
           category: The category of the prompts to return
 
-          from_: The pagination offset to start from (0-based)
+          limit: The number of prompts to return. Default is 10.
 
-          size: The number of prompts to return
-
-          to: The pagination offset to end at (exclusive)
+          offset: The pagination offset to start from (0-based). Default is 0.
 
           extra_headers: Send extra headers
 
@@ -248,9 +190,8 @@ class PromptsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "category": category,
-                        "from_": from_,
-                        "size": size,
-                        "to": to,
+                        "limit": limit,
+                        "offset": offset,
                     },
                     prompt_list_params.PromptListParams,
                 ),
@@ -296,7 +237,7 @@ class PromptsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        latest: bool,
+        latest: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -329,65 +270,6 @@ class PromptsResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform({"latest": latest}, prompt_retrieve_content_params.PromptRetrieveContentParams),
-            ),
-            cast_to=str,
-        )
-
-    def update_metadata(
-        self,
-        path_id: str,
-        *,
-        body_id: str,
-        category: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Update prompt metadata
-
-        Args:
-          body_id: The id of the prompt
-
-          category: The category of the prompt
-
-          description: The description of the prompt
-
-          name: The name of the prompt
-
-          tags: The tags of the prompt
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return self._put(
-            f"/prompt/{path_id}/metadata",
-            body=maybe_transform(
-                {
-                    "body_id": body_id,
-                    "category": category,
-                    "description": description,
-                    "name": name,
-                    "tags": tags,
-                },
-                prompt_update_metadata_params.PromptUpdateMetadataParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=str,
         )
@@ -481,6 +363,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        metadata: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -489,9 +372,11 @@ class AsyncPromptsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> str:
         """
-        Get prompt
+        Get entire prompt with option to include metadata
 
         Args:
+          metadata: Whether to include metadata in the response
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -506,63 +391,11 @@ class AsyncPromptsResource(AsyncAPIResource):
         return await self._get(
             f"/prompt/{id}",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
-    async def update(
-        self,
-        path_id: str,
-        *,
-        body_id: str,
-        content: str,
-        parent: str,
-        branched: Optional[bool] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Update prompt
-
-        Args:
-          body_id: The id of the prompt to update
-
-          content: The content of the updated prompt
-
-          parent: The parent of the updated prompt. Most times its the same as the id of the
-              prompt to update.
-
-          branched: Whether the updated prompt is branched
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return await self._put(
-            f"/prompt/{path_id}",
-            body=await async_maybe_transform(
-                {
-                    "body_id": body_id,
-                    "content": content,
-                    "parent": parent,
-                    "branched": branched,
-                },
-                prompt_update_params.PromptUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"metadata": metadata}, prompt_retrieve_params.PromptRetrieveParams),
             ),
             cast_to=str,
         )
@@ -570,10 +403,9 @@ class AsyncPromptsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        category: str,
-        from_: int,
-        size: int,
-        to: int,
+        category: str | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -587,11 +419,9 @@ class AsyncPromptsResource(AsyncAPIResource):
         Args:
           category: The category of the prompts to return
 
-          from_: The pagination offset to start from (0-based)
+          limit: The number of prompts to return. Default is 10.
 
-          size: The number of prompts to return
-
-          to: The pagination offset to end at (exclusive)
+          offset: The pagination offset to start from (0-based). Default is 0.
 
           extra_headers: Send extra headers
 
@@ -611,9 +441,8 @@ class AsyncPromptsResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "category": category,
-                        "from_": from_,
-                        "size": size,
-                        "to": to,
+                        "limit": limit,
+                        "offset": offset,
                     },
                     prompt_list_params.PromptListParams,
                 ),
@@ -659,7 +488,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        latest: bool,
+        latest: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -698,65 +527,6 @@ class AsyncPromptsResource(AsyncAPIResource):
             cast_to=str,
         )
 
-    async def update_metadata(
-        self,
-        path_id: str,
-        *,
-        body_id: str,
-        category: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
-        """
-        Update prompt metadata
-
-        Args:
-          body_id: The id of the prompt
-
-          category: The category of the prompt
-
-          description: The description of the prompt
-
-          name: The name of the prompt
-
-          tags: The tags of the prompt
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not path_id:
-            raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
-        return await self._put(
-            f"/prompt/{path_id}/metadata",
-            body=await async_maybe_transform(
-                {
-                    "body_id": body_id,
-                    "category": category,
-                    "description": description,
-                    "name": name,
-                    "tags": tags,
-                },
-                prompt_update_metadata_params.PromptUpdateMetadataParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=str,
-        )
-
 
 class PromptsResourceWithRawResponse:
     def __init__(self, prompts: PromptsResource) -> None:
@@ -768,9 +538,6 @@ class PromptsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             prompts.retrieve,
         )
-        self.update = to_raw_response_wrapper(
-            prompts.update,
-        )
         self.list = to_raw_response_wrapper(
             prompts.list,
         )
@@ -779,9 +546,6 @@ class PromptsResourceWithRawResponse:
         )
         self.retrieve_content = to_raw_response_wrapper(
             prompts.retrieve_content,
-        )
-        self.update_metadata = to_raw_response_wrapper(
-            prompts.update_metadata,
         )
 
 
@@ -795,9 +559,6 @@ class AsyncPromptsResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             prompts.retrieve,
         )
-        self.update = async_to_raw_response_wrapper(
-            prompts.update,
-        )
         self.list = async_to_raw_response_wrapper(
             prompts.list,
         )
@@ -806,9 +567,6 @@ class AsyncPromptsResourceWithRawResponse:
         )
         self.retrieve_content = async_to_raw_response_wrapper(
             prompts.retrieve_content,
-        )
-        self.update_metadata = async_to_raw_response_wrapper(
-            prompts.update_metadata,
         )
 
 
@@ -822,9 +580,6 @@ class PromptsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             prompts.retrieve,
         )
-        self.update = to_streamed_response_wrapper(
-            prompts.update,
-        )
         self.list = to_streamed_response_wrapper(
             prompts.list,
         )
@@ -833,9 +588,6 @@ class PromptsResourceWithStreamingResponse:
         )
         self.retrieve_content = to_streamed_response_wrapper(
             prompts.retrieve_content,
-        )
-        self.update_metadata = to_streamed_response_wrapper(
-            prompts.update_metadata,
         )
 
 
@@ -849,9 +601,6 @@ class AsyncPromptsResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             prompts.retrieve,
         )
-        self.update = async_to_streamed_response_wrapper(
-            prompts.update,
-        )
         self.list = async_to_streamed_response_wrapper(
             prompts.list,
         )
@@ -860,7 +609,4 @@ class AsyncPromptsResourceWithStreamingResponse:
         )
         self.retrieve_content = async_to_streamed_response_wrapper(
             prompts.retrieve_content,
-        )
-        self.update_metadata = async_to_streamed_response_wrapper(
-            prompts.update_metadata,
         )
