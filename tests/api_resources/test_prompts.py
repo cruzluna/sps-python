@@ -122,9 +122,7 @@ class TestPrompts:
     @pytest.mark.skip()
     @parametrize
     def test_method_list(self, client: SystemPromptStorage) -> None:
-        prompt = client.prompts.list(
-            category="category",
-        )
+        prompt = client.prompts.list()
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
     @pytest.mark.skip()
@@ -141,9 +139,7 @@ class TestPrompts:
     @pytest.mark.skip()
     @parametrize
     def test_raw_response_list(self, client: SystemPromptStorage) -> None:
-        response = client.prompts.with_raw_response.list(
-            category="category",
-        )
+        response = client.prompts.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -153,9 +149,7 @@ class TestPrompts:
     @pytest.mark.skip()
     @parametrize
     def test_streaming_response_list(self, client: SystemPromptStorage) -> None:
-        with client.prompts.with_streaming_response.list(
-            category="category",
-        ) as response:
+        with client.prompts.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -363,9 +357,7 @@ class TestAsyncPrompts:
     @pytest.mark.skip()
     @parametrize
     async def test_method_list(self, async_client: AsyncSystemPromptStorage) -> None:
-        prompt = await async_client.prompts.list(
-            category="category",
-        )
+        prompt = await async_client.prompts.list()
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
     @pytest.mark.skip()
@@ -382,9 +374,7 @@ class TestAsyncPrompts:
     @pytest.mark.skip()
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncSystemPromptStorage) -> None:
-        response = await async_client.prompts.with_raw_response.list(
-            category="category",
-        )
+        response = await async_client.prompts.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -394,9 +384,7 @@ class TestAsyncPrompts:
     @pytest.mark.skip()
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncSystemPromptStorage) -> None:
-        async with async_client.prompts.with_streaming_response.list(
-            category="category",
-        ) as response:
+        async with async_client.prompts.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

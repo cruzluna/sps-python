@@ -152,7 +152,7 @@ class PromptsResource(SyncAPIResource):
     def list(
         self,
         *,
-        category: str,
+        category: str | NotGiven = NOT_GIVEN,
         from_: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         to: int | NotGiven = NOT_GIVEN,
@@ -407,7 +407,7 @@ class AsyncPromptsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        category: str,
+        category: str | NotGiven = NOT_GIVEN,
         from_: int | NotGiven = NOT_GIVEN,
         size: int | NotGiven = NOT_GIVEN,
         to: int | NotGiven = NOT_GIVEN,
