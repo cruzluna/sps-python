@@ -130,9 +130,8 @@ class TestPrompts:
     def test_method_list_with_all_params(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.list(
             category="category",
-            from_=0,
-            size=0,
-            to=0,
+            limit=0,
+            offset=0,
         )
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
@@ -365,9 +364,8 @@ class TestAsyncPrompts:
     async def test_method_list_with_all_params(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.list(
             category="category",
-            from_=0,
-            size=0,
-            to=0,
+            limit=0,
+            offset=0,
         )
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 

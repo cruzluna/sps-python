@@ -153,9 +153,8 @@ class PromptsResource(SyncAPIResource):
         self,
         *,
         category: str | NotGiven = NOT_GIVEN,
-        from_: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        to: int | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -169,11 +168,9 @@ class PromptsResource(SyncAPIResource):
         Args:
           category: The category of the prompts to return
 
-          from_: The pagination offset to start from (0-based)
+          limit: The number of prompts to return. Default is 10.
 
-          size: The number of prompts to return
-
-          to: The pagination offset to end at (exclusive)
+          offset: The pagination offset to start from (0-based). Default is 0.
 
           extra_headers: Send extra headers
 
@@ -193,9 +190,8 @@ class PromptsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "category": category,
-                        "from_": from_,
-                        "size": size,
-                        "to": to,
+                        "limit": limit,
+                        "offset": offset,
                     },
                     prompt_list_params.PromptListParams,
                 ),
@@ -408,9 +404,8 @@ class AsyncPromptsResource(AsyncAPIResource):
         self,
         *,
         category: str | NotGiven = NOT_GIVEN,
-        from_: int | NotGiven = NOT_GIVEN,
-        size: int | NotGiven = NOT_GIVEN,
-        to: int | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        offset: int | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -424,11 +419,9 @@ class AsyncPromptsResource(AsyncAPIResource):
         Args:
           category: The category of the prompts to return
 
-          from_: The pagination offset to start from (0-based)
+          limit: The number of prompts to return. Default is 10.
 
-          size: The number of prompts to return
-
-          to: The pagination offset to end at (exclusive)
+          offset: The pagination offset to start from (0-based). Default is 0.
 
           extra_headers: Send extra headers
 
@@ -448,9 +441,8 @@ class AsyncPromptsResource(AsyncAPIResource):
                 query=await async_maybe_transform(
                     {
                         "category": category,
-                        "from_": from_,
-                        "size": size,
-                        "to": to,
+                        "limit": limit,
+                        "offset": offset,
                     },
                     prompt_list_params.PromptListParams,
                 ),
