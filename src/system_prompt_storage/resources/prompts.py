@@ -6,7 +6,13 @@ from typing import List, Optional
 
 import httpx
 
-from ..types import prompt_list_params, prompt_create_params, prompt_retrieve_params, prompt_retrieve_content_params
+from ..types import (
+    prompt_list_params,
+    prompt_create_params,
+    prompt_retrieve_params,
+    prompt_update_metadata_params,
+    prompt_retrieve_content_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -274,6 +280,62 @@ class PromptsResource(SyncAPIResource):
             cast_to=str,
         )
 
+    def update_metadata(
+        self,
+        *,
+        id: str,
+        category: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Update prompt metadata
+
+        Args:
+          id: The id of the prompt
+
+          category: The category of the prompt
+
+          description: The description of the prompt
+
+          name: The name of the prompt
+
+          tags: The tags of the prompt
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return self._put(
+            "/prompt/metadata",
+            body=maybe_transform(
+                {
+                    "id": id,
+                    "category": category,
+                    "description": description,
+                    "name": name,
+                    "tags": tags,
+                },
+                prompt_update_metadata_params.PromptUpdateMetadataParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
 
 class AsyncPromptsResource(AsyncAPIResource):
     @cached_property
@@ -527,6 +589,62 @@ class AsyncPromptsResource(AsyncAPIResource):
             cast_to=str,
         )
 
+    async def update_metadata(
+        self,
+        *,
+        id: str,
+        category: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
+        """
+        Update prompt metadata
+
+        Args:
+          id: The id of the prompt
+
+          category: The category of the prompt
+
+          description: The description of the prompt
+
+          name: The name of the prompt
+
+          tags: The tags of the prompt
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
+        return await self._put(
+            "/prompt/metadata",
+            body=await async_maybe_transform(
+                {
+                    "id": id,
+                    "category": category,
+                    "description": description,
+                    "name": name,
+                    "tags": tags,
+                },
+                prompt_update_metadata_params.PromptUpdateMetadataParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=str,
+        )
+
 
 class PromptsResourceWithRawResponse:
     def __init__(self, prompts: PromptsResource) -> None:
@@ -546,6 +664,9 @@ class PromptsResourceWithRawResponse:
         )
         self.retrieve_content = to_raw_response_wrapper(
             prompts.retrieve_content,
+        )
+        self.update_metadata = to_raw_response_wrapper(
+            prompts.update_metadata,
         )
 
 
@@ -568,6 +689,9 @@ class AsyncPromptsResourceWithRawResponse:
         self.retrieve_content = async_to_raw_response_wrapper(
             prompts.retrieve_content,
         )
+        self.update_metadata = async_to_raw_response_wrapper(
+            prompts.update_metadata,
+        )
 
 
 class PromptsResourceWithStreamingResponse:
@@ -589,6 +713,9 @@ class PromptsResourceWithStreamingResponse:
         self.retrieve_content = to_streamed_response_wrapper(
             prompts.retrieve_content,
         )
+        self.update_metadata = to_streamed_response_wrapper(
+            prompts.update_metadata,
+        )
 
 
 class AsyncPromptsResourceWithStreamingResponse:
@@ -609,4 +736,7 @@ class AsyncPromptsResourceWithStreamingResponse:
         )
         self.retrieve_content = async_to_streamed_response_wrapper(
             prompts.retrieve_content,
+        )
+        self.update_metadata = async_to_streamed_response_wrapper(
+            prompts.update_metadata,
         )
