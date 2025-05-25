@@ -62,7 +62,7 @@ class PromptsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Prompt:
         """
-        Create prompt
+        Create prompt or update it by passing the parent id
 
         Args:
           content: The content of the prompt
@@ -313,7 +313,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Prompt:
         """
-        Create prompt
+        Create prompt or update it by passing the parent id
 
         Args:
           content: The content of the prompt
