@@ -250,6 +250,52 @@ class TestPrompts:
                 id="",
             )
 
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_update_metadata(self, client: SystemPromptStorage) -> None:
+        prompt = client.prompts.update_metadata(
+            id="id",
+        )
+        assert_matches_type(str, prompt, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_update_metadata_with_all_params(self, client: SystemPromptStorage) -> None:
+        prompt = client.prompts.update_metadata(
+            id="id",
+            category="category",
+            description="description",
+            name="name",
+            tags=["string"],
+        )
+        assert_matches_type(str, prompt, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_update_metadata(self, client: SystemPromptStorage) -> None:
+        response = client.prompts.with_raw_response.update_metadata(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        prompt = response.parse()
+        assert_matches_type(str, prompt, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_update_metadata(self, client: SystemPromptStorage) -> None:
+        with client.prompts.with_streaming_response.update_metadata(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            prompt = response.parse()
+            assert_matches_type(str, prompt, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncPrompts:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -483,3 +529,49 @@ class TestAsyncPrompts:
             await async_client.prompts.with_raw_response.retrieve_content(
                 id="",
             )
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_update_metadata(self, async_client: AsyncSystemPromptStorage) -> None:
+        prompt = await async_client.prompts.update_metadata(
+            id="id",
+        )
+        assert_matches_type(str, prompt, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_update_metadata_with_all_params(self, async_client: AsyncSystemPromptStorage) -> None:
+        prompt = await async_client.prompts.update_metadata(
+            id="id",
+            category="category",
+            description="description",
+            name="name",
+            tags=["string"],
+        )
+        assert_matches_type(str, prompt, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_update_metadata(self, async_client: AsyncSystemPromptStorage) -> None:
+        response = await async_client.prompts.with_raw_response.update_metadata(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        prompt = await response.parse()
+        assert_matches_type(str, prompt, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_update_metadata(self, async_client: AsyncSystemPromptStorage) -> None:
+        async with async_client.prompts.with_streaming_response.update_metadata(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            prompt = await response.parse()
+            assert_matches_type(str, prompt, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
