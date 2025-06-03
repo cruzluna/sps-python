@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2025-06-03)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** api update ([127d180](https://github.com/cruzluna/sps-python/commit/127d1809fae4c5a6234f9dffb4e4faf1243d3654))
+* **client:** add follow_redirects request option ([294e2d0](https://github.com/cruzluna/sps-python/commit/294e2d0fc1bdc7c33604989e1117aefa0a6a3535))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([620ac7b](https://github.com/cruzluna/sps-python/commit/620ac7bb94a47698679320d74dba599e04e14514))
+
 ## 0.1.0-alpha.3 (2025-05-25)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
