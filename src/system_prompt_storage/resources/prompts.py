@@ -66,7 +66,7 @@ class PromptsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Prompt:
+    ) -> str:
         """
         Create prompt or update it by passing the parent id
 
@@ -94,6 +94,7 @@ class PromptsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/prompt",
             body=maybe_transform(
@@ -111,7 +112,7 @@ class PromptsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Prompt,
+            cast_to=str,
         )
 
     def retrieve(
@@ -372,7 +373,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Prompt:
+    ) -> str:
         """
         Create prompt or update it by passing the parent id
 
@@ -400,6 +401,7 @@ class AsyncPromptsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/prompt",
             body=await async_maybe_transform(
@@ -417,7 +419,7 @@ class AsyncPromptsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Prompt,
+            cast_to=str,
         )
 
     async def retrieve(
