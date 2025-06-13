@@ -66,7 +66,7 @@ class PromptsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Prompt:
+    ) -> str:
         """
         Create prompt or update it by passing the parent id
 
@@ -94,6 +94,7 @@ class PromptsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._post(
             "/prompt",
             body=maybe_transform(
@@ -111,7 +112,7 @@ class PromptsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Prompt,
+            cast_to=str,
         )
 
     def retrieve(
@@ -125,7 +126,7 @@ class PromptsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> Prompt:
         """
         Get entire prompt with option to include metadata
 
@@ -142,7 +143,6 @@ class PromptsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._get(
             f"/prompt/{id}",
             options=make_request_options(
@@ -152,7 +152,7 @@ class PromptsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"metadata": metadata}, prompt_retrieve_params.PromptRetrieveParams),
             ),
-            cast_to=str,
+            cast_to=Prompt,
         )
 
     def list(
@@ -373,7 +373,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Prompt:
+    ) -> str:
         """
         Create prompt or update it by passing the parent id
 
@@ -401,6 +401,7 @@ class AsyncPromptsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._post(
             "/prompt",
             body=await async_maybe_transform(
@@ -418,7 +419,7 @@ class AsyncPromptsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Prompt,
+            cast_to=str,
         )
 
     async def retrieve(
@@ -432,7 +433,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> str:
+    ) -> Prompt:
         """
         Get entire prompt with option to include metadata
 
@@ -449,7 +450,6 @@ class AsyncPromptsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
             f"/prompt/{id}",
             options=make_request_options(
@@ -459,7 +459,7 @@ class AsyncPromptsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"metadata": metadata}, prompt_retrieve_params.PromptRetrieveParams),
             ),
-            cast_to=str,
+            cast_to=Prompt,
         )
 
     async def list(

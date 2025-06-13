@@ -36,7 +36,6 @@ client = SystemPromptStorage(
 prompt = client.prompts.create(
     content="content",
 )
-print(prompt.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -64,7 +63,6 @@ async def main() -> None:
     prompt = await client.prompts.create(
         content="content",
     )
-    print(prompt.id)
 
 
 asyncio.run(main())
@@ -216,7 +214,7 @@ response = client.prompts.with_raw_response.create(
 print(response.headers.get('X-My-Header'))
 
 prompt = response.parse()  # get the object that `prompts.create()` would have returned
-print(prompt.id)
+print(prompt)
 ```
 
 These methods return an [`APIResponse`](https://github.com/cruzluna/sps-python/tree/main/src/system_prompt_storage/_response.py) object.

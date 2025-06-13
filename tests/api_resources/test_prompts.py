@@ -26,7 +26,7 @@ class TestPrompts:
         prompt = client.prompts.create(
             content="content",
         )
-        assert_matches_type(Prompt, prompt, path=["response"])
+        assert_matches_type(str, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -40,7 +40,7 @@ class TestPrompts:
             parent="parent",
             tags=["string"],
         )
-        assert_matches_type(Prompt, prompt, path=["response"])
+        assert_matches_type(str, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -52,7 +52,7 @@ class TestPrompts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = response.parse()
-        assert_matches_type(Prompt, prompt, path=["response"])
+        assert_matches_type(str, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -64,7 +64,7 @@ class TestPrompts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = response.parse()
-            assert_matches_type(Prompt, prompt, path=["response"])
+            assert_matches_type(str, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -74,7 +74,7 @@ class TestPrompts:
         prompt = client.prompts.retrieve(
             id="id",
         )
-        assert_matches_type(str, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -83,7 +83,7 @@ class TestPrompts:
             id="id",
             metadata=True,
         )
-        assert_matches_type(str, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -95,7 +95,7 @@ class TestPrompts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = response.parse()
-        assert_matches_type(str, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -107,7 +107,7 @@ class TestPrompts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = response.parse()
-            assert_matches_type(str, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -306,7 +306,7 @@ class TestAsyncPrompts:
         prompt = await async_client.prompts.create(
             content="content",
         )
-        assert_matches_type(Prompt, prompt, path=["response"])
+        assert_matches_type(str, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -320,7 +320,7 @@ class TestAsyncPrompts:
             parent="parent",
             tags=["string"],
         )
-        assert_matches_type(Prompt, prompt, path=["response"])
+        assert_matches_type(str, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -332,7 +332,7 @@ class TestAsyncPrompts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = await response.parse()
-        assert_matches_type(Prompt, prompt, path=["response"])
+        assert_matches_type(str, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -344,7 +344,7 @@ class TestAsyncPrompts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = await response.parse()
-            assert_matches_type(Prompt, prompt, path=["response"])
+            assert_matches_type(str, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -354,7 +354,7 @@ class TestAsyncPrompts:
         prompt = await async_client.prompts.retrieve(
             id="id",
         )
-        assert_matches_type(str, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -363,7 +363,7 @@ class TestAsyncPrompts:
             id="id",
             metadata=True,
         )
-        assert_matches_type(str, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -375,7 +375,7 @@ class TestAsyncPrompts:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = await response.parse()
-        assert_matches_type(str, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
@@ -387,7 +387,7 @@ class TestAsyncPrompts:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = await response.parse()
-            assert_matches_type(str, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
