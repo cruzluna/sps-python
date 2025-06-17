@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2025-06-17)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** api update ([e744344](https://github.com/cruzluna/sps-python/commit/e744344e1834e68ec41e3478de7aaa81ea9efcdd))
+* **api:** api update ([127d180](https://github.com/cruzluna/sps-python/commit/127d1809fae4c5a6234f9dffb4e4faf1243d3654))
+* **client:** add follow_redirects request option ([294e2d0](https://github.com/cruzluna/sps-python/commit/294e2d0fc1bdc7c33604989e1117aefa0a6a3535))
+
+
+### Bug Fixes
+
+* **client:** correctly parse binary response | stream ([c31c7c8](https://github.com/cruzluna/sps-python/commit/c31c7c8614493f7b6e74c563fe8eafbe49f0d5e4))
+
+
+### Chores
+
+* **docs:** remove reference to rye shell ([620ac7b](https://github.com/cruzluna/sps-python/commit/620ac7bb94a47698679320d74dba599e04e14514))
+* **tests:** add tests for httpx client instantiation & proxies ([8c4d2ce](https://github.com/cruzluna/sps-python/commit/8c4d2cea1a60eb4e21f4f900e17afe6291c76cde))
+* **tests:** run tests in parallel ([9c4f91e](https://github.com/cruzluna/sps-python/commit/9c4f91ef743c3ae403c49030437742b53d7c281c))
+
 ## 0.1.0-alpha.3 (2025-05-25)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
