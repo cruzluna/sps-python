@@ -23,9 +23,7 @@ from pydantic import ValidationError
 
 from system_prompt_storage import SystemPromptStorage, AsyncSystemPromptStorage, APIResponseValidationError
 from system_prompt_storage._types import Omit
-from system_prompt_storage._utils import maybe_transform
 from system_prompt_storage._models import BaseModel, FinalRequestOptions
-from system_prompt_storage._constants import RAW_RESPONSE_HEADER
 from system_prompt_storage._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from system_prompt_storage._base_client import (
     DEFAULT_TIMEOUT,
@@ -35,7 +33,6 @@ from system_prompt_storage._base_client import (
     DefaultAsyncHttpxClient,
     make_request_options,
 )
-from system_prompt_storage.types.prompt_create_params import PromptCreateParams
 
 from .utils import update_env
 
@@ -734,32 +731,21 @@ class TestSystemPromptStorage:
 
     @mock.patch("system_prompt_storage._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: SystemPromptStorage) -> None:
         respx_mock.post("/prompt").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            self.client.post(
-                "/prompt",
-                body=cast(object, maybe_transform(dict(content="content"), PromptCreateParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            client.prompts.with_streaming_response.create(content="content").__enter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("system_prompt_storage._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: SystemPromptStorage) -> None:
         respx_mock.post("/prompt").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            self.client.post(
-                "/prompt",
-                body=cast(object, maybe_transform(dict(content="content"), PromptCreateParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            client.prompts.with_streaming_response.create(content="content").__enter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1572,32 +1558,25 @@ class TestAsyncSystemPromptStorage:
 
     @mock.patch("system_prompt_storage._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_timeout_errors_doesnt_leak(
+        self, respx_mock: MockRouter, async_client: AsyncSystemPromptStorage
+    ) -> None:
         respx_mock.post("/prompt").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await self.client.post(
-                "/prompt",
-                body=cast(object, maybe_transform(dict(content="content"), PromptCreateParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
+            await async_client.prompts.with_streaming_response.create(content="content").__aenter__()
 
         assert _get_open_connections(self.client) == 0
 
     @mock.patch("system_prompt_storage._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
-    async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
+    async def test_retrying_status_errors_doesnt_leak(
+        self, respx_mock: MockRouter, async_client: AsyncSystemPromptStorage
+    ) -> None:
         respx_mock.post("/prompt").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await self.client.post(
-                "/prompt",
-                body=cast(object, maybe_transform(dict(content="content"), PromptCreateParams)),
-                cast_to=httpx.Response,
-                options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
-            )
-
+            await async_client.prompts.with_streaming_response.create(content="content").__aenter__()
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
