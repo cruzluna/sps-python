@@ -1,6 +1,6 @@
 [project]
 name = "system_prompt_storage"
-version = "0.1.0-alpha.4"
+version = "0.1.0-alpha.5"
 description = "The official Python library for the system-prompt-storage API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -37,6 +37,8 @@ classifiers = [
 Homepage = "https://github.com/cruzluna/sps-python"
 Repository = "https://github.com/cruzluna/sps-python"
 
+[project.optional-dependencies]
+aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.6"]
 
 [tool.rye]
 managed = true

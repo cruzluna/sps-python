@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2025-06-24)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Features
+
+* **client:** add support for aiohttp ([fe48770](https://github.com/cruzluna/sps-python/commit/fe487703a75e996e245834f623ade3e8bd2f2860))
+
+
+### Bug Fixes
+
+* **tests:** fix: tests which call HTTP endpoints directly with the example parameters ([c5eb2c7](https://github.com/cruzluna/sps-python/commit/c5eb2c7622aa562a5563186c8bb9ffb8ed2ea3bb))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([1ce48f3](https://github.com/cruzluna/sps-python/commit/1ce48f39a477414e71ac78527fbd28d895b1c977))
+* **internal:** update conftest.py ([d340781](https://github.com/cruzluna/sps-python/commit/d340781c57ca746c78fbe4dd14d642596007c681))
+* **readme:** update badges ([be13d2f](https://github.com/cruzluna/sps-python/commit/be13d2f05df26758a37a08a1cdf07ab286c348ed))
+* **tests:** skip some failing tests on the latest python versions ([9ebb6e4](https://github.com/cruzluna/sps-python/commit/9ebb6e43c193eb6e102f18c49b1898065a85541a))
+
+
+### Documentation
+
+* **client:** fix httpx.Timeout documentation reference ([8884fda](https://github.com/cruzluna/sps-python/commit/8884fda63a2d274fb1ace1b1bc147c313bfea621))
+
 ## 0.1.0-alpha.4 (2025-06-17)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
