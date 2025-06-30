@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2025-06-30)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Bug Fixes
+
+* **ci:** correct conditional ([372a857](https://github.com/cruzluna/sps-python/commit/372a857bfac2a4c6d705b4bbdc045f85271afc4e))
+* **ci:** release-doctor — report correct token name ([5b09aa7](https://github.com/cruzluna/sps-python/commit/5b09aa7c1ee6c4425d779e1ab740168a2af05362))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([dad3aeb](https://github.com/cruzluna/sps-python/commit/dad3aeb7544d8ff189d5da072914dc6335f1a693))
+
 ## 0.1.0-alpha.5 (2025-06-24)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
