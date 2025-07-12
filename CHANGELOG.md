@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2025-07-12)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Bug Fixes
+
+* **ci:** correct conditional ([372a857](https://github.com/cruzluna/sps-python/commit/372a857bfac2a4c6d705b4bbdc045f85271afc4e))
+* **ci:** release-doctor — report correct token name ([5b09aa7](https://github.com/cruzluna/sps-python/commit/5b09aa7c1ee6c4425d779e1ab740168a2af05362))
+* **client:** don't send Content-Type header on GET requests ([6838055](https://github.com/cruzluna/sps-python/commit/6838055c08e18543cca8929a63d637402df35419))
+* **parsing:** correctly handle nested discriminated unions ([d60df6e](https://github.com/cruzluna/sps-python/commit/d60df6e6ee08738e27d94e108870b52935d6d4c6))
+
+
+### Chores
+
+* **ci:** change upload type ([82ccbb3](https://github.com/cruzluna/sps-python/commit/82ccbb3bd2ae4de0d7366646df400db928480af0))
+* **ci:** only run for pushes and fork pull requests ([dad3aeb](https://github.com/cruzluna/sps-python/commit/dad3aeb7544d8ff189d5da072914dc6335f1a693))
+* **internal:** bump pinned h11 dep ([2b91465](https://github.com/cruzluna/sps-python/commit/2b91465bf5a1a18af230556e50b097fbe2763092))
+* **internal:** codegen related update ([5360340](https://github.com/cruzluna/sps-python/commit/5360340a2c9b9fa79d6c439c4f8992eb12067fb7))
+* **package:** mark python 3.13 as supported ([c13f9a1](https://github.com/cruzluna/sps-python/commit/c13f9a1b41aa5162e2208f99acd677285db9fcf5))
+* **readme:** fix version rendering on pypi ([ebf7fd1](https://github.com/cruzluna/sps-python/commit/ebf7fd1263b30dc49e2d2dbe5d108df95033e2c0))
+
 ## 0.1.0-alpha.5 (2025-06-24)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
