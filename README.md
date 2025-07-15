@@ -85,7 +85,6 @@ pip install --pre system_prompt_storage[aiohttp]
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from system_prompt_storage import DefaultAioHttpClient
 from system_prompt_storage import AsyncSystemPromptStorage
@@ -93,9 +92,7 @@ from system_prompt_storage import AsyncSystemPromptStorage
 
 async def main() -> None:
     async with AsyncSystemPromptStorage(
-        api_key=os.environ.get(
-            "SYSTEM_PROMPT_STORAGE_API_KEY"
-        ),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         prompt = await client.prompts.create(
