@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2025-08-22)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Features
+
+* clean up environment call outs ([fd11684](https://github.com/cruzluna/sps-python/commit/fd11684a479d5bd40ae9b58921b29c95513063a4))
+* **client:** support file upload requests ([fdb7367](https://github.com/cruzluna/sps-python/commit/fdb7367507dca652dfa88ab1eccd254e7201b73d))
+
+
+### Bug Fixes
+
+* **ci:** correct conditional ([372a857](https://github.com/cruzluna/sps-python/commit/372a857bfac2a4c6d705b4bbdc045f85271afc4e))
+* **ci:** release-doctor — report correct token name ([5b09aa7](https://github.com/cruzluna/sps-python/commit/5b09aa7c1ee6c4425d779e1ab740168a2af05362))
+* **client:** don't send Content-Type header on GET requests ([6838055](https://github.com/cruzluna/sps-python/commit/6838055c08e18543cca8929a63d637402df35419))
+* **parsing:** correctly handle nested discriminated unions ([d60df6e](https://github.com/cruzluna/sps-python/commit/d60df6e6ee08738e27d94e108870b52935d6d4c6))
+* **parsing:** ignore empty metadata ([71b7233](https://github.com/cruzluna/sps-python/commit/71b7233514cf47dc0a883356e3c892c094b455e6))
+* **parsing:** parse extra field types ([b51d5a5](https://github.com/cruzluna/sps-python/commit/b51d5a5f9465380b3fc4d157d7cc9849a8c02acf))
+
+
+### Chores
+
+* **ci:** change upload type ([82ccbb3](https://github.com/cruzluna/sps-python/commit/82ccbb3bd2ae4de0d7366646df400db928480af0))
+* **ci:** only run for pushes and fork pull requests ([dad3aeb](https://github.com/cruzluna/sps-python/commit/dad3aeb7544d8ff189d5da072914dc6335f1a693))
+* **internal:** bump pinned h11 dep ([2b91465](https://github.com/cruzluna/sps-python/commit/2b91465bf5a1a18af230556e50b097fbe2763092))
+* **internal:** codegen related update ([3fc8d64](https://github.com/cruzluna/sps-python/commit/3fc8d642684e2775eac6cdb1fe601699eae44aea))
+* **internal:** codegen related update ([5360340](https://github.com/cruzluna/sps-python/commit/5360340a2c9b9fa79d6c439c4f8992eb12067fb7))
+* **internal:** fix ruff target version ([8edf214](https://github.com/cruzluna/sps-python/commit/8edf214f4739d22963bb6b5fdf8ae4dbb552b36e))
+* **internal:** update comment in script ([f1c6869](https://github.com/cruzluna/sps-python/commit/f1c6869453fe8ada85a696b9d18038494d9f4b95))
+* **package:** mark python 3.13 as supported ([c13f9a1](https://github.com/cruzluna/sps-python/commit/c13f9a1b41aa5162e2208f99acd677285db9fcf5))
+* **project:** add settings file for vscode ([fe01959](https://github.com/cruzluna/sps-python/commit/fe019595ddadb5b4cef7d202290310eb0b4890b8))
+* **readme:** fix version rendering on pypi ([ebf7fd1](https://github.com/cruzluna/sps-python/commit/ebf7fd1263b30dc49e2d2dbe5d108df95033e2c0))
+* update @stainless-api/prism-cli to v5.15.0 ([95de321](https://github.com/cruzluna/sps-python/commit/95de32139b58a9e4adbcdfdcec1c4e5b090c1248))
+* update github action ([7a2373d](https://github.com/cruzluna/sps-python/commit/7a2373d85ce0d8397d905909f8c8397c4b401fb2))
+
 ## 0.1.0-alpha.5 (2025-06-24)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/cruzluna/sps-python/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
