@@ -20,7 +20,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestPrompts:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.create(
@@ -28,7 +28,7 @@ class TestPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.create(
@@ -42,7 +42,7 @@ class TestPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: SystemPromptStorage) -> None:
         response = client.prompts.with_raw_response.create(
@@ -54,7 +54,7 @@ class TestPrompts:
         prompt = response.parse()
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: SystemPromptStorage) -> None:
         with client.prompts.with_streaming_response.create(
@@ -68,7 +68,7 @@ class TestPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.retrieve(
@@ -76,7 +76,7 @@ class TestPrompts:
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve_with_all_params(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.retrieve(
@@ -85,7 +85,7 @@ class TestPrompts:
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: SystemPromptStorage) -> None:
         response = client.prompts.with_raw_response.retrieve(
@@ -97,7 +97,7 @@ class TestPrompts:
         prompt = response.parse()
         assert_matches_type(Prompt, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: SystemPromptStorage) -> None:
         with client.prompts.with_streaming_response.retrieve(
@@ -111,7 +111,7 @@ class TestPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: SystemPromptStorage) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -119,13 +119,13 @@ class TestPrompts:
                 id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.list()
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.list(
@@ -135,7 +135,7 @@ class TestPrompts:
         )
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: SystemPromptStorage) -> None:
         response = client.prompts.with_raw_response.list()
@@ -145,7 +145,7 @@ class TestPrompts:
         prompt = response.parse()
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: SystemPromptStorage) -> None:
         with client.prompts.with_streaming_response.list() as response:
@@ -157,7 +157,7 @@ class TestPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_delete(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.delete(
@@ -165,7 +165,7 @@ class TestPrompts:
         )
         assert prompt is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: SystemPromptStorage) -> None:
         response = client.prompts.with_raw_response.delete(
@@ -177,7 +177,7 @@ class TestPrompts:
         prompt = response.parse()
         assert prompt is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: SystemPromptStorage) -> None:
         with client.prompts.with_streaming_response.delete(
@@ -191,7 +191,7 @@ class TestPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: SystemPromptStorage) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -199,7 +199,7 @@ class TestPrompts:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve_content(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.retrieve_content(
@@ -207,7 +207,7 @@ class TestPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve_content_with_all_params(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.retrieve_content(
@@ -216,7 +216,7 @@ class TestPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_retrieve_content(self, client: SystemPromptStorage) -> None:
         response = client.prompts.with_raw_response.retrieve_content(
@@ -228,7 +228,7 @@ class TestPrompts:
         prompt = response.parse()
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_retrieve_content(self, client: SystemPromptStorage) -> None:
         with client.prompts.with_streaming_response.retrieve_content(
@@ -242,7 +242,7 @@ class TestPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_retrieve_content(self, client: SystemPromptStorage) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -250,7 +250,7 @@ class TestPrompts:
                 id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update_metadata(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.update_metadata(
@@ -258,7 +258,7 @@ class TestPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_update_metadata_with_all_params(self, client: SystemPromptStorage) -> None:
         prompt = client.prompts.update_metadata(
@@ -270,7 +270,7 @@ class TestPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_update_metadata(self, client: SystemPromptStorage) -> None:
         response = client.prompts.with_raw_response.update_metadata(
@@ -282,7 +282,7 @@ class TestPrompts:
         prompt = response.parse()
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_update_metadata(self, client: SystemPromptStorage) -> None:
         with client.prompts.with_streaming_response.update_metadata(
@@ -302,7 +302,7 @@ class TestAsyncPrompts:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.create(
@@ -310,7 +310,7 @@ class TestAsyncPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.create(
@@ -324,7 +324,7 @@ class TestAsyncPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncSystemPromptStorage) -> None:
         response = await async_client.prompts.with_raw_response.create(
@@ -336,7 +336,7 @@ class TestAsyncPrompts:
         prompt = await response.parse()
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncSystemPromptStorage) -> None:
         async with async_client.prompts.with_streaming_response.create(
@@ -350,7 +350,7 @@ class TestAsyncPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.retrieve(
@@ -358,7 +358,7 @@ class TestAsyncPrompts:
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.retrieve(
@@ -367,7 +367,7 @@ class TestAsyncPrompts:
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncSystemPromptStorage) -> None:
         response = await async_client.prompts.with_raw_response.retrieve(
@@ -379,7 +379,7 @@ class TestAsyncPrompts:
         prompt = await response.parse()
         assert_matches_type(Prompt, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncSystemPromptStorage) -> None:
         async with async_client.prompts.with_streaming_response.retrieve(
@@ -393,7 +393,7 @@ class TestAsyncPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncSystemPromptStorage) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -401,13 +401,13 @@ class TestAsyncPrompts:
                 id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.list()
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.list(
@@ -417,7 +417,7 @@ class TestAsyncPrompts:
         )
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncSystemPromptStorage) -> None:
         response = await async_client.prompts.with_raw_response.list()
@@ -427,7 +427,7 @@ class TestAsyncPrompts:
         prompt = await response.parse()
         assert_matches_type(PromptListResponse, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncSystemPromptStorage) -> None:
         async with async_client.prompts.with_streaming_response.list() as response:
@@ -439,7 +439,7 @@ class TestAsyncPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.delete(
@@ -447,7 +447,7 @@ class TestAsyncPrompts:
         )
         assert prompt is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncSystemPromptStorage) -> None:
         response = await async_client.prompts.with_raw_response.delete(
@@ -459,7 +459,7 @@ class TestAsyncPrompts:
         prompt = await response.parse()
         assert prompt is None
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncSystemPromptStorage) -> None:
         async with async_client.prompts.with_streaming_response.delete(
@@ -473,7 +473,7 @@ class TestAsyncPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncSystemPromptStorage) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -481,7 +481,7 @@ class TestAsyncPrompts:
                 "",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve_content(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.retrieve_content(
@@ -489,7 +489,7 @@ class TestAsyncPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve_content_with_all_params(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.retrieve_content(
@@ -498,7 +498,7 @@ class TestAsyncPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_retrieve_content(self, async_client: AsyncSystemPromptStorage) -> None:
         response = await async_client.prompts.with_raw_response.retrieve_content(
@@ -510,7 +510,7 @@ class TestAsyncPrompts:
         prompt = await response.parse()
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve_content(self, async_client: AsyncSystemPromptStorage) -> None:
         async with async_client.prompts.with_streaming_response.retrieve_content(
@@ -524,7 +524,7 @@ class TestAsyncPrompts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_retrieve_content(self, async_client: AsyncSystemPromptStorage) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -532,7 +532,7 @@ class TestAsyncPrompts:
                 id="",
             )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update_metadata(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.update_metadata(
@@ -540,7 +540,7 @@ class TestAsyncPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_update_metadata_with_all_params(self, async_client: AsyncSystemPromptStorage) -> None:
         prompt = await async_client.prompts.update_metadata(
@@ -552,7 +552,7 @@ class TestAsyncPrompts:
         )
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_update_metadata(self, async_client: AsyncSystemPromptStorage) -> None:
         response = await async_client.prompts.with_raw_response.update_metadata(
@@ -564,7 +564,7 @@ class TestAsyncPrompts:
         prompt = await response.parse()
         assert_matches_type(str, prompt, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_update_metadata(self, async_client: AsyncSystemPromptStorage) -> None:
         async with async_client.prompts.with_streaming_response.update_metadata(
